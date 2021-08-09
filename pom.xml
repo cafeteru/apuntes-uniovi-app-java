@@ -15,9 +15,7 @@
     <description>Final degree project to improve the use of the Uniovi virtual campus</description>
 
     <properties>
-        <h2.version>1.4.200</h2.version>
         <java.version>11</java.version>
-        <javax.validation.version>2.0.1.Final</javax.validation.version>
     </properties>
 
     <dependencies>
@@ -36,7 +34,6 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${javax.validation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -72,7 +69,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 
