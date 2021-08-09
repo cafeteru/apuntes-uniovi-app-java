@@ -7,5 +7,5 @@ import es.uniovi.apuntesunioviapp.model.User;
 /**
  * Manage the users table
  */
-interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }

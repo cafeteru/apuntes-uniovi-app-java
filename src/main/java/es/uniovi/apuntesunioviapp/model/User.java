@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -80,6 +81,9 @@ public class User {
     @NotEmpty(message = UserMessages.EMPTY_USERNAME)
     @Size(message = UserMessages.LIMIT_USERNAME, max = UserLimits.USERNAME)
     private String username;
+
+    @OneToOne
+    private Address address;
 
     public void setEmail(String email) {
         if (new ValidatorEmail(email).isValid()) {

@@ -5,12 +5,12 @@ import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.IMG
 import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.NAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.USERNAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.EMPTY_PASSWORD;
+import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.EMPTY_USERNAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_EMAIL;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_IMG;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_NAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_USERNAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.NULL_PASSWORD;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.EMPTY_USERNAME;
 import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.NULL_USERNAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.validation.ConstraintViolationException;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +28,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import es.uniovi.apuntesunioviapp.mocks.model.MockUser;
+import es.uniovi.apuntesunioviapp.mocks.persistent.PersistentUser;
 import es.uniovi.apuntesunioviapp.model.User;
 
 @ExtendWith(SpringExtension.class)
@@ -39,6 +39,9 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @BeforeEach
     void setUp() {
@@ -53,6 +56,16 @@ class UserRepositoryTest {
         var optional = userRepository.findById(user.getId());
         assertTrue(optional.isPresent());
         assertEquals(optional.get(), user);
+    }
+
+    @Test
+    void createWithAddress() {
+        user = new PersistentUser(addressRepository, userRepository).create();
+        assertNotNull(user.getId());
+        var optional = userRepository.findById(user.getId());
+        assertTrue(optional.isPresent());
+        assertEquals(optional.get(), user);
+        assertEquals(optional.get().getAddress(), user.getAddress());
     }
 
     @Test
@@ -82,7 +95,7 @@ class UserRepositoryTest {
         String username = "1".repeat(USERNAME);
         user.setUsername(username);
         user = userRepository.save(user);
-        Assertions.assertEquals(user.getUsername(), username);
+        assertEquals(user.getUsername(), username);
     }
 
     @Test
@@ -106,7 +119,7 @@ class UserRepositoryTest {
             "1".repeat(EMAIL - size - end.length()) + end;
         user.setEmail(email);
         user = userRepository.save(user);
-        Assertions.assertEquals(user.getEmail(), email);
+        assertEquals(user.getEmail(), email);
     }
 
     @Test
@@ -130,7 +143,7 @@ class UserRepositoryTest {
         String img = "1".repeat(IMG);
         user.setImg(img);
         user = userRepository.save(user);
-        Assertions.assertEquals(user.getImg(), img);
+        assertEquals(user.getImg(), img);
     }
 
     @Test
@@ -150,7 +163,7 @@ class UserRepositoryTest {
         String name = "1".repeat(NAME);
         user.setName(name);
         user = userRepository.save(user);
-        Assertions.assertEquals(user.getName(), name);
+        assertEquals(user.getName(), name);
     }
 
     @Test
