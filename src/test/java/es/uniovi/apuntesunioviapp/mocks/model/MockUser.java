@@ -8,6 +8,9 @@ import es.uniovi.apuntesunioviapp.model.User;
 import es.uniovi.apuntesunioviapp.model.types.IdentificationType;
 import es.uniovi.apuntesunioviapp.model.types.RoleType;
 
+/**
+ * Create a mock user to test
+ */
 public class MockUser implements MockCreator<User> {
 
     @Override
@@ -17,7 +20,6 @@ public class MockUser implements MockCreator<User> {
             .active(true)
             .birthDate(LocalDate.now())
             .email("email@email.es")
-            .id(1L)
             .identificationType(IdentificationType.DNI)
             .img("img")
             .name("Name")
@@ -27,11 +29,5 @@ public class MockUser implements MockCreator<User> {
             .surname("Surname")
             .username(username)
             .build();
-    }
-
-    public User createWithoutId() {
-        var user = create();
-        user.setId(null);
-        return user;
     }
 }

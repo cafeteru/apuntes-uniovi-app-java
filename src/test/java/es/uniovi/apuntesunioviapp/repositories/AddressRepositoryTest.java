@@ -1,13 +1,5 @@
 package es.uniovi.apuntesunioviapp.repositories;
 
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits.CITY;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits.COUNTRY;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits.POSTAL_CODE;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits.STREET;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages.LIMIT_CITY;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages.LIMIT_COUNTRY;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages.LIMIT_POSTAL_CODE;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages.LIMIT_STREET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -24,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits;
+import es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages;
 import es.uniovi.apuntesunioviapp.mocks.model.MockAddress;
 import es.uniovi.apuntesunioviapp.model.Address;
 
@@ -38,7 +32,7 @@ class AddressRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        address = new MockAddress().createWithoutId();
+        address = new MockAddress().create();
     }
 
     @Test
@@ -53,7 +47,7 @@ class AddressRepositoryTest {
 
     @Test
     void limitCity() {
-        String city = "1".repeat(CITY);
+        String city = "1".repeat(AddressLimits.CITY);
         address.setCity(city);
         address = addressRepository.save(address);
         Assertions.assertEquals(address.getCity(), city);
@@ -61,19 +55,19 @@ class AddressRepositoryTest {
 
     @Test
     void upLimitCity() {
-        String city = "1".repeat(CITY + 1);
+        String city = "1".repeat(AddressLimits.CITY + 1);
         address.setCity(city);
         try {
             addressRepository.save(address);
-            fail(LIMIT_CITY);
+            fail(AddressMessages.LIMIT_CITY);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_CITY));
+            assertTrue(e.getMessage().contains(AddressMessages.LIMIT_CITY));
         }
     }
 
     @Test
     void limitStreet() {
-        String street = "1".repeat(STREET);
+        String street = "1".repeat(AddressLimits.STREET);
         address.setStreet(street);
         address = addressRepository.save(address);
         assertEquals(address.getStreet(), street);
@@ -81,19 +75,19 @@ class AddressRepositoryTest {
 
     @Test
     void upLimitStreet() {
-        String street = "1".repeat(STREET + 1);
+        String street = "1".repeat(AddressLimits.STREET + 1);
         address.setStreet(street);
         try {
             addressRepository.save(address);
-            fail(LIMIT_STREET);
+            fail(AddressMessages.LIMIT_STREET);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_STREET));
+            assertTrue(e.getMessage().contains(AddressMessages.LIMIT_STREET));
         }
     }
 
     @Test
     void limitPostalCode() {
-        String postalCode = "1".repeat(POSTAL_CODE);
+        String postalCode = "1".repeat(AddressLimits.POSTAL_CODE);
         address.setPostalCode(postalCode);
         address = addressRepository.save(address);
         assertEquals(address.getPostalCode(), postalCode);
@@ -101,19 +95,19 @@ class AddressRepositoryTest {
 
     @Test
     void upLimitPostalCode() {
-        String postalCode = "1".repeat(POSTAL_CODE + 1);
+        String postalCode = "1".repeat(AddressLimits.POSTAL_CODE + 1);
         address.setPostalCode(postalCode);
         try {
             addressRepository.save(address);
-            fail(LIMIT_POSTAL_CODE);
+            fail(AddressMessages.LIMIT_POSTAL_CODE);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_POSTAL_CODE));
+            assertTrue(e.getMessage().contains(AddressMessages.LIMIT_POSTAL_CODE));
         }
     }
 
     @Test
     void limitCountry() {
-        String country = "1".repeat(COUNTRY);
+        String country = "1".repeat(AddressLimits.COUNTRY);
         address.setCountry(country);
         address = addressRepository.save(address);
         assertEquals(address.getCountry(), country);
@@ -121,13 +115,13 @@ class AddressRepositoryTest {
 
     @Test
     void upLimitCountry() {
-        String country = "1".repeat(COUNTRY + 1);
+        String country = "1".repeat(AddressLimits.COUNTRY + 1);
         address.setCountry(country);
         try {
             addressRepository.save(address);
-            fail(LIMIT_COUNTRY);
+            fail(AddressMessages.LIMIT_COUNTRY);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_COUNTRY));
+            assertTrue(e.getMessage().contains(AddressMessages.LIMIT_COUNTRY));
         }
     }
 }

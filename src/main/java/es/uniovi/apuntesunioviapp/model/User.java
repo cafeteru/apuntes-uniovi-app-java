@@ -46,6 +46,7 @@ public class User {
     private Boolean active;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = UserMessages.INVALID_IDENTIFICATION_TYPE)
     private IdentificationType identificationType;
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +55,7 @@ public class User {
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = UserMessages.INVALID_ROLE_TYPE)
     private RoleType role;
 
     @Size(message = UserMessages.LIMIT_EMAIL, max = UserLimits.EMAIL)

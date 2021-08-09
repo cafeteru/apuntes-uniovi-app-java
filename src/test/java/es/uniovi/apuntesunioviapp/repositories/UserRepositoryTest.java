@@ -1,17 +1,5 @@
 package es.uniovi.apuntesunioviapp.repositories;
 
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.EMAIL;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.IMG;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.NAME;
-import static es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits.USERNAME;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.EMPTY_PASSWORD;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.EMPTY_USERNAME;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_EMAIL;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_IMG;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_NAME;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_USERNAME;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.NULL_PASSWORD;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.NULL_USERNAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import es.uniovi.apuntesunioviapp.infrastructure.constants.UserLimits;
+import es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages;
 import es.uniovi.apuntesunioviapp.mocks.model.MockUser;
 import es.uniovi.apuntesunioviapp.mocks.persistent.PersistentUser;
 import es.uniovi.apuntesunioviapp.model.User;
@@ -45,7 +35,7 @@ class UserRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        user = new MockUser().createWithoutId();
+        user = new MockUser().create();
     }
 
     @Test
@@ -73,9 +63,9 @@ class UserRepositoryTest {
         user.setUsername(null);
         try {
             userRepository.save(user);
-            fail(NULL_USERNAME);
+            fail(UserMessages.NULL_USERNAME);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(NULL_USERNAME));
+            assertTrue(e.getMessage().contains(UserMessages.NULL_USERNAME));
         }
     }
 
@@ -84,15 +74,15 @@ class UserRepositoryTest {
         user.setUsername("");
         try {
             userRepository.save(user);
-            fail(EMPTY_USERNAME);
+            fail(UserMessages.EMPTY_USERNAME);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(EMPTY_USERNAME));
+            assertTrue(e.getMessage().contains(UserMessages.EMPTY_USERNAME));
         }
     }
 
     @Test
     void limitUsername() {
-        String username = "1".repeat(USERNAME);
+        String username = "1".repeat(UserLimits.USERNAME);
         user.setUsername(username);
         user = userRepository.save(user);
         assertEquals(user.getUsername(), username);
@@ -100,23 +90,23 @@ class UserRepositoryTest {
 
     @Test
     void upLimitUsername() {
-        String username = "1".repeat(USERNAME + 1);
+        String username = "1".repeat(UserLimits.USERNAME + 1);
         user.setUsername(username);
         try {
             userRepository.save(user);
-            fail(LIMIT_NAME);
+            fail(UserMessages.LIMIT_NAME);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_USERNAME));
+            assertTrue(e.getMessage().contains(UserMessages.LIMIT_USERNAME));
         }
     }
 
     @Test
     void limitEmail() {
-        var size = EMAIL / 2;
+        var size = UserLimits.EMAIL / 2;
         var end = ".es";
         String email = "1".repeat(size - 1) +
             "@" +
-            "1".repeat(EMAIL - size - end.length()) + end;
+            "1".repeat(UserLimits.EMAIL - size - end.length()) + end;
         user.setEmail(email);
         user = userRepository.save(user);
         assertEquals(user.getEmail(), email);
@@ -124,23 +114,23 @@ class UserRepositoryTest {
 
     @Test
     void upLimitEmail() {
-        var aux = EMAIL / 2;
+        var aux = UserLimits.EMAIL / 2;
         String email = "1".repeat(aux) +
             "@" +
-            "1".repeat(EMAIL - aux) +
+            "1".repeat(UserLimits.EMAIL - aux) +
             ".es";
         user.setEmail(email);
         try {
             userRepository.save(user);
-            fail(LIMIT_EMAIL);
+            fail(UserMessages.LIMIT_EMAIL);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_EMAIL));
+            assertTrue(e.getMessage().contains(UserMessages.LIMIT_EMAIL));
         }
     }
 
     @Test
     void limitImg() {
-        String img = "1".repeat(IMG);
+        String img = "1".repeat(UserLimits.IMG);
         user.setImg(img);
         user = userRepository.save(user);
         assertEquals(user.getImg(), img);
@@ -148,19 +138,19 @@ class UserRepositoryTest {
 
     @Test
     void upLimitImg() {
-        String img = "1".repeat(IMG + 1);
+        String img = "1".repeat(UserLimits.IMG + 1);
         user.setImg(img);
         try {
             userRepository.save(user);
-            fail(LIMIT_IMG);
+            fail(UserMessages.LIMIT_IMG);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_IMG));
+            assertTrue(e.getMessage().contains(UserMessages.LIMIT_IMG));
         }
     }
 
     @Test
     void limitName() {
-        String name = "1".repeat(NAME);
+        String name = "1".repeat(UserLimits.NAME);
         user.setName(name);
         user = userRepository.save(user);
         assertEquals(user.getName(), name);
@@ -168,13 +158,13 @@ class UserRepositoryTest {
 
     @Test
     void upLimitName() {
-        String name = "1".repeat(NAME + 1);
+        String name = "1".repeat(UserLimits.NAME + 1);
         user.setName(name);
         try {
             userRepository.save(user);
-            fail(LIMIT_NAME);
+            fail(UserMessages.LIMIT_NAME);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(LIMIT_NAME));
+            assertTrue(e.getMessage().contains(UserMessages.LIMIT_NAME));
         }
     }
 
@@ -183,9 +173,9 @@ class UserRepositoryTest {
         user.setPassword(null);
         try {
             userRepository.save(user);
-            fail(NULL_PASSWORD);
+            fail(UserMessages.NULL_PASSWORD);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(NULL_PASSWORD));
+            assertTrue(e.getMessage().contains(UserMessages.NULL_PASSWORD));
         }
     }
 
@@ -194,9 +184,9 @@ class UserRepositoryTest {
         user.setPassword("");
         try {
             userRepository.save(user);
-            fail(EMPTY_PASSWORD);
+            fail(UserMessages.EMPTY_PASSWORD);
         } catch (ConstraintViolationException e) {
-            assertTrue(e.getMessage().contains(EMPTY_PASSWORD));
+            assertTrue(e.getMessage().contains(UserMessages.EMPTY_PASSWORD));
         }
     }
 }
