@@ -43,13 +43,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean active;
+    private boolean active;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = UserMessages.INVALID_IDENTIFICATION_TYPE)
     private IdentificationType identificationType;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = UserMessages.INVALID_LANGUAGE)
     private LanguageType language;
 
     private LocalDate birthDate;
@@ -76,7 +77,7 @@ public class User {
 
     private String phone;
 
-    @Column(length = UserLimits.SURNAME)
+    @Size(message = UserMessages.LIMIT_SURNAME, max = UserLimits.SURNAME)
     private String surname;
 
     @NotNull(message = UserMessages.NULL_USERNAME)

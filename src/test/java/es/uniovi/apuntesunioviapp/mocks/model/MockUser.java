@@ -6,6 +6,7 @@ import es.uniovi.apuntesunioviapp.mocks.MockCreator;
 import es.uniovi.apuntesunioviapp.mocks.RandomMethods;
 import es.uniovi.apuntesunioviapp.model.User;
 import es.uniovi.apuntesunioviapp.model.types.IdentificationType;
+import es.uniovi.apuntesunioviapp.model.types.LanguageType;
 import es.uniovi.apuntesunioviapp.model.types.RoleType;
 
 /**
@@ -22,6 +23,7 @@ public class MockUser implements MockCreator<User> {
             .email("email@email.es")
             .identificationType(IdentificationType.DNI)
             .img("img")
+            .language(LanguageType.ES)
             .name("Name")
             .password(username)
             .phone("698523147")

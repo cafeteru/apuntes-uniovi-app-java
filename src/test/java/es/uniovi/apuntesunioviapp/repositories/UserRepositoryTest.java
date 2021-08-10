@@ -169,6 +169,26 @@ class UserRepositoryTest {
     }
 
     @Test
+    void limitSurname() {
+        String surname = "1".repeat(UserLimits.SURNAME);
+        user.setSurname(surname);
+        user = userRepository.save(user);
+        assertEquals(user.getSurname(), surname);
+    }
+
+    @Test
+    void upLimitSurname() {
+        String surname = "1".repeat(UserLimits.SURNAME + 1);
+        user.setSurname(surname);
+        try {
+            userRepository.save(user);
+            fail(UserMessages.LIMIT_SURNAME);
+        } catch (ConstraintViolationException e) {
+            assertTrue(e.getMessage().contains(UserMessages.LIMIT_SURNAME));
+        }
+    }
+
+    @Test
     void nullPassword() {
         user.setPassword(null);
         try {
@@ -187,6 +207,28 @@ class UserRepositoryTest {
             fail(UserMessages.EMPTY_PASSWORD);
         } catch (ConstraintViolationException e) {
             assertTrue(e.getMessage().contains(UserMessages.EMPTY_PASSWORD));
+        }
+    }
+
+    @Test
+    void nullIdentificationType() {
+        user.setIdentificationType(null);
+        try {
+            userRepository.save(user);
+            fail(UserMessages.INVALID_IDENTIFICATION_TYPE);
+        } catch (ConstraintViolationException e) {
+            assertTrue(e.getMessage().contains(UserMessages.INVALID_IDENTIFICATION_TYPE));
+        }
+    }
+
+    @Test
+    void nullLanguage() {
+        user.setLanguage(null);
+        try {
+            userRepository.save(user);
+            fail(UserMessages.INVALID_LANGUAGE);
+        } catch (ConstraintViolationException e) {
+            assertTrue(e.getMessage().contains(UserMessages.INVALID_LANGUAGE));
         }
     }
 }
