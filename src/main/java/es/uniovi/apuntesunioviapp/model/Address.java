@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,17 +12,21 @@ import es.uniovi.apuntesunioviapp.infrastructure.constants.AddressLimits;
 import es.uniovi.apuntesunioviapp.infrastructure.messages.AddressMessages;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Represents addresses
  */
-@Data
-@Entity
-@Builder
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Builder
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +43,17 @@ public class Address {
 
     @Size(message = AddressMessages.LIMIT_COUNTRY, max = AddressLimits.COUNTRY)
     private String country;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id) && Objects.equals(street, address.street) && Objects.equals(city, address.city) && Objects.equals(postalCode, address.postalCode) && Objects.equals(country, address.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, street, city, postalCode, country);
+    }
 }

@@ -15,7 +15,7 @@ import es.uniovi.apuntesunioviapp.validators.impl.ValidatorIsBeforeToday;
 class ValidatorIsBeforeTodayTest {
 
     @Test
-    void validData() {
+    void valid_data() {
         var date = LocalDate.now();
         var validator = new ValidatorIsBeforeToday(date);
         assertTrue(validator.isValid());
@@ -25,7 +25,7 @@ class ValidatorIsBeforeTodayTest {
     }
 
     @Test
-    void nullData() {
+    void null_data() {
         var validator = new ValidatorIsBeforeToday(null);
         assertTrue(validator.isValid());
     }

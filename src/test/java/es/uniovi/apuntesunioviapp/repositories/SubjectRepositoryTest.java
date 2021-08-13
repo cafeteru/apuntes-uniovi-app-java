@@ -30,12 +30,12 @@ class SubjectRepositoryTest {
     private SubjectRepository subjectRepository;
 
     @BeforeEach
-    void setUp() {
+    void set_up() {
         subject = new MockSubject().create();
     }
 
     @Test
-    void createValidData() {
+    void create_valid_data() {
         assertNull(subject.getId());
         subject = subjectRepository.save(subject);
         assertNotNull(subject.getId());
@@ -45,7 +45,7 @@ class SubjectRepositoryTest {
     }
 
     @Test
-    void limitName() {
+    void limit_name() {
         String name = "1".repeat(SubjectLimits.NAME);
         subject.setName(name);
         subject = subjectRepository.save(subject);
@@ -53,7 +53,7 @@ class SubjectRepositoryTest {
     }
 
     @Test
-    void upLimitName() {
+    void up_limit_name() {
         String name = "1".repeat(SubjectLimits.NAME + 1);
         subject.setName(name);
         try {
@@ -65,7 +65,7 @@ class SubjectRepositoryTest {
     }
 
     @Test
-    void nullSubjectType() {
+    void null_subject_type() {
         subject.setSubjectType(null);
         try {
             subject = subjectRepository.save(subject);

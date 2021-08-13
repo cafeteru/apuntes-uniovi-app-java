@@ -1,7 +1,5 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
-import java.util.Locale;
-
 import es.uniovi.apuntesunioviapp.validators.Validator;
 import lombok.AllArgsConstructor;
 

@@ -31,12 +31,12 @@ class AddressRepositoryTest {
     private AddressRepository addressRepository;
 
     @BeforeEach
-    void setUp() {
+    void set_up() {
         address = new MockAddress().create();
     }
 
     @Test
-    void createValidData() {
+    void create_valid() {
         assertNull(address.getId());
         address = addressRepository.save(address);
         assertNotNull(address.getId());
@@ -46,7 +46,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void limitCity() {
+    void limit_city() {
         String city = "1".repeat(AddressLimits.CITY);
         address.setCity(city);
         address = addressRepository.save(address);
@@ -54,7 +54,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void upLimitCity() {
+    void up_limit_city() {
         String city = "1".repeat(AddressLimits.CITY + 1);
         address.setCity(city);
         try {
@@ -66,7 +66,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void limitStreet() {
+    void limit_street() {
         String street = "1".repeat(AddressLimits.STREET);
         address.setStreet(street);
         address = addressRepository.save(address);
@@ -74,7 +74,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void upLimitStreet() {
+    void up_limit_street() {
         String street = "1".repeat(AddressLimits.STREET + 1);
         address.setStreet(street);
         try {
@@ -86,7 +86,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void limitPostalCode() {
+    void limit_postal_code() {
         String postalCode = "1".repeat(AddressLimits.POSTAL_CODE);
         address.setPostalCode(postalCode);
         address = addressRepository.save(address);
@@ -94,7 +94,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void upLimitPostalCode() {
+    void up_limit_postal_code() {
         String postalCode = "1".repeat(AddressLimits.POSTAL_CODE + 1);
         address.setPostalCode(postalCode);
         try {
@@ -106,7 +106,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void limitCountry() {
+    void limit_country() {
         String country = "1".repeat(AddressLimits.COUNTRY);
         address.setCountry(country);
         address = addressRepository.save(address);
@@ -114,7 +114,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    void upLimitCountry() {
+    void up_limit_country() {
         String country = "1".repeat(AddressLimits.COUNTRY + 1);
         address.setCountry(country);
         try {

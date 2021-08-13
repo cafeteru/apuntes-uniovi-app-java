@@ -4,40 +4,36 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import es.uniovi.apuntesunioviapp.validators.impl.ValidatorEmail;
 
 class ValidatorEmailTest {
 
     @Test
-    void validData() {
+    void valid_data() {
         var validator = new ValidatorEmail("email@email.es");
         assertTrue(validator.isValid());
     }
 
     @Test
-    void nullData() {
+    void null_data() {
         var validator = new ValidatorEmail(null);
         assertTrue(validator.isValid());
     }
 
-    @Test
-    void emptyData() {
-        var validator = new ValidatorEmail("");
-        assertFalse(validator.isValid());
-    }
-
-    @Test
-    void invalidData() {
-        var validator = new ValidatorEmail("@uniovi.es");
-        assertFalse(validator.isValid());
-        validator = new ValidatorEmail("uo239795@uniovi");
-        assertFalse(validator.isValid());
-        validator = new ValidatorEmail("uo239795@@uniovi");
-        assertFalse(validator.isValid());
-        validator = new ValidatorEmail("uo239795uniovi.es");
-        assertFalse(validator.isValid());
-        validator = new ValidatorEmail("uo239795uniovies");
+    @ParameterizedTest
+    @ValueSource(strings = {
+    	"",
+        "@uniovi.es",
+        "uo239795@uniovi",
+        "uo239795@@uniovi",
+        "uo239795uniovi.es",
+        "uo239795uniovies"
+    })
+    void invalidData(String email) {
+        var validator = new ValidatorEmail(email);
         assertFalse(validator.isValid());
     }
 }

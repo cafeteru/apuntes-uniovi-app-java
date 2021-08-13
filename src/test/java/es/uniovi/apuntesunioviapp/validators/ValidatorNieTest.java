@@ -6,7 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import es.uniovi.apuntesunioviapp.mocks.RandomMethods;
-import es.uniovi.apuntesunioviapp.validators.impl.ValidatorDni;
 import es.uniovi.apuntesunioviapp.validators.impl.ValidatorNie;
 
 /**

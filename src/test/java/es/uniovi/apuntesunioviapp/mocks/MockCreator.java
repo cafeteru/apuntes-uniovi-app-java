@@ -7,7 +7,7 @@ package es.uniovi.apuntesunioviapp.mocks;
  */
 public interface MockCreator<T> {
     /**
-     *  Create a mock data
+     * Create a mock data
      *
      * @return a mock object to use in tests
      */

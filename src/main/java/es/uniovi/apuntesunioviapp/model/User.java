@@ -1,9 +1,7 @@
 package es.uniovi.apuntesunioviapp.model;
 
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.INVALID_EMAIL;
-import static es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages.LIMIT_BIRTH_DATE;
-
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,18 +24,22 @@ import es.uniovi.apuntesunioviapp.validators.impl.ValidatorEmail;
 import es.uniovi.apuntesunioviapp.validators.impl.ValidatorIsBeforeToday;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
 /**
  * Represents users
  */
-@Data
-@Entity
-@Builder
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,7 +94,7 @@ public class User {
         if (new ValidatorEmail(email).isValid()) {
             this.email = email;
         } else {
-            throw new IllegalArgumentException(INVALID_EMAIL);
+            throw new IllegalArgumentException(UserMessages.INVALID_EMAIL);
         }
     }
 
@@ -100,7 +102,20 @@ public class User {
         if (new ValidatorIsBeforeToday(birthDate).isValid()) {
             this.birthDate = birthDate;
         } else {
-            throw new IllegalArgumentException(LIMIT_BIRTH_DATE);
+            throw new IllegalArgumentException(UserMessages.LIMIT_BIRTH_DATE);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username);
     }
 }

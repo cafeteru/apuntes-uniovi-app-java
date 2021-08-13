@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,17 +16,21 @@ import es.uniovi.apuntesunioviapp.infrastructure.messages.SubjectMessages;
 import es.uniovi.apuntesunioviapp.model.types.SubjectType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Represents subjects
  */
-@Data
-@Entity
-@Builder
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Builder
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +44,17 @@ public class Subject {
     private SubjectType subjectType;
 
     private boolean active;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return Objects.equals(id, subject.id) && Objects.equals(name, subject.name) && subjectType == subject.subjectType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, subjectType);
+    }
 }
