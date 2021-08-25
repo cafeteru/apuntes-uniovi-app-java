@@ -1,6 +1,7 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import es.uniovi.apuntesunioviapp.validators.Validator;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class ValidatorIsBeforeToday implements Validator {
     @Override
     public boolean isValid() {
         var limit = LocalDate.now();
-        if (date != null) {
+        if (Objects.nonNull(date)) {
             return date.isBefore(limit) || date.isEqual(limit);
         }
         return true;

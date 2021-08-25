@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
+import java.util.Objects;
+
 import es.uniovi.apuntesunioviapp.model.User;
 import es.uniovi.apuntesunioviapp.model.types.RoleType;
 import es.uniovi.apuntesunioviapp.validators.Validator;
@@ -15,7 +17,7 @@ public class ValidatorUserRole implements Validator {
 
     @Override
     public boolean isValid() {
-        return user != null && user.getRole() != null
+        return Objects.nonNull(user) && Objects.nonNull(user.getRole())
             && user.getRole().equals(roleType);
     }
 }

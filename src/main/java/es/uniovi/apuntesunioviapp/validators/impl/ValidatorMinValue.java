@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
+import java.util.Objects;
+
 import es.uniovi.apuntesunioviapp.validators.Validator;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +16,7 @@ public class ValidatorMinValue<T> implements Validator {
     @Override
     public boolean isValid() {
         try {
-            return value != null && limit != null
+            return Objects.nonNull(value) && Objects.nonNull(limit)
                 && Double.parseDouble(value.toString()) <= Double.parseDouble(limit.toString());
         } catch (NumberFormatException e) {
             return false;

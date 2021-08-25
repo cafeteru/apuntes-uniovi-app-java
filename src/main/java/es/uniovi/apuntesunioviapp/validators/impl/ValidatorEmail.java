@@ -1,5 +1,6 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import es.uniovi.apuntesunioviapp.validators.Validator;
@@ -14,7 +15,7 @@ public class ValidatorEmail implements Validator {
 
     @Override
     public boolean isValid() {
-        if (email != null) {
+        if (Objects.nonNull(email)) {
             var pattern = Pattern.compile(
                 "^[_A-Za-z0-9]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"

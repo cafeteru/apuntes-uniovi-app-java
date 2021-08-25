@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +41,7 @@ public class TeachSubject {
     private Subject subject;
 
     public void setTeacher(User teacher) {
-        if (teacher == null || new ValidatorUserRole(teacher, RoleType.ROLE_TEACHER).isValid()) {
+        if (Objects.isNull(teacher) || new ValidatorUserRole(teacher, RoleType.ROLE_TEACHER).isValid()) {
             this.teacher = teacher;
         } else {
             throw new IllegalArgumentException(TeachSubjectMessages.INVALID_TEACHER);

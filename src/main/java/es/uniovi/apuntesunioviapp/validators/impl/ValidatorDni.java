@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
+import java.util.Objects;
+
 import es.uniovi.apuntesunioviapp.validators.Validator;
 import lombok.AllArgsConstructor;
 
@@ -15,7 +17,7 @@ public class ValidatorDni implements Validator {
 
     @Override
     public boolean isValid() {
-        if (dni == null) {
+        if (Objects.isNull(dni)) {
             return true;
         }
         try {

@@ -1,5 +1,7 @@
 package es.uniovi.apuntesunioviapp.validators.impl;
 
+import java.util.Objects;
+
 import es.uniovi.apuntesunioviapp.validators.Validator;
 import lombok.AllArgsConstructor;
 
@@ -12,7 +14,7 @@ public class ValidatorNie implements Validator {
 
     @Override
     public boolean isValid() {
-        if (nie == null) {
+        if (Objects.isNull(nie)) {
             return true;
         }
         if (nie.isEmpty()) {
@@ -24,7 +26,8 @@ public class ValidatorNie implements Validator {
         return new ValidatorDni(aux).isValid();
     }
 
-    private String checkFirstLetter(String nie, Character firstLetter, int numberLetter) {
+    private String checkFirstLetter(String nie, Character firstLetter,
+                                    int numberLetter) {
         if (nie.charAt(0) == firstLetter) {
             return numberLetter + nie.substring(1);
         }
