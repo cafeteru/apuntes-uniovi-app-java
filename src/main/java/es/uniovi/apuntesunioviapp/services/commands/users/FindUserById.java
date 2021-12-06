@@ -19,13 +19,13 @@ public class FindUserById implements Command<UserDto> {
 
     @Override
     public UserDto execute() {
-        log.debug("execute() - start");
+        log.info("execute() - start");
         Optional<User> usuario = userRepository.findById(id);
         if (usuario.isEmpty()) {
             log.error(UserMessages.NOT_EXISTS);
             throw new IllegalArgumentException(UserMessages.NOT_EXISTS);
         }
-        log.debug("execute() - end");
+        log.info("execute() - end");
         return Helper.convert(usuario.get(), UserDto.class);
     }
 }

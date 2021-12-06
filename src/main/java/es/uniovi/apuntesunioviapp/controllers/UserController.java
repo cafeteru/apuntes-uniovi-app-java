@@ -30,36 +30,36 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserDto>> findAll(Pageable pageable) {
-        log.debug("findAll({}) - start", pageable);
+        log.info("findAll({}) - start", pageable);
         var page = userService.findAll(pageable);
-        log.debug("findAll({}) - end", pageable);
+        log.info("findAll({}) - end", pageable);
         return new ResponseEntity<>(page, page.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto findById(@PathVariable("id") Long id) {
-        log.debug("findById({}) - start", id);
+        log.info("findById({}) - start", id);
         var userDto = userService.findById(id);
-        log.debug("findById({}) - end", id);
+        log.info("findById({}) - end", id);
         return userDto;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto create(@Valid @RequestBody UserDto userDto) {
-        log.debug("create({}) - start", userDto);
+        log.info("create({}) - start", userDto);
         var result = userService.create(userDto);
-        log.debug("create({}) - end", userDto);
+        log.info("create({}) - end", userDto);
         return result;
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDto update(@RequestBody UserDto userDto) {
-        log.debug("update({}) - start", userDto);
+        log.info("update({}) - start", userDto);
         var result = userService.update(userDto);
-        log.debug("update({}) - end", userDto);
+        log.info("update({}) - end", userDto);
         return result;
     }
 
@@ -68,8 +68,8 @@ public class UserController {
     public void delete(
         @PathVariable Long id
     ) {
-        log.debug("delete({}) - start", id);
+        log.info("delete({}) - start", id);
         userService.deleteById(id);
-        log.debug("delete({}) - start", id);
+        log.info("delete({}) - start", id);
     }
 }

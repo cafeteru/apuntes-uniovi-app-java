@@ -26,8 +26,7 @@ public class ValidatorNie implements Validator {
         return new ValidatorDni(aux).isValid();
     }
 
-    private String checkFirstLetter(String nie, Character firstLetter,
-                                    int numberLetter) {
+    private String checkFirstLetter(String nie, Character firstLetter, int numberLetter) {
         if (nie.charAt(0) == firstLetter) {
             return numberLetter + nie.substring(1);
         }

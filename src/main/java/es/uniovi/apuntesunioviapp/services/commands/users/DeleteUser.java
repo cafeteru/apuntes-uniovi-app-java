@@ -13,9 +13,9 @@ public class DeleteUser implements Command<Void> {
 
     @Override
     public Void execute() {
-        log.debug("execute() - start");
+        log.info("execute() - start");
         new FindUserById(userRepository, id).execute();
-        log.debug("execute() - end");
+        log.info("execute() - end");
         userRepository.deleteById(id);
         return null;
     }

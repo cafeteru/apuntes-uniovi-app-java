@@ -16,10 +16,10 @@ public class CreateUser implements Command<UserDto> {
 
     @Override
     public UserDto execute() {
-        log.debug("execute() - start");
+        log.info("execute() - start");
         var user = Helper.convert(userDto, User.class);
         var result = userRepository.save(user);
-        log.debug("execute() - end");
+        log.info("execute() - end");
         return Helper.convert(result, UserDto.class);
     }
 }
