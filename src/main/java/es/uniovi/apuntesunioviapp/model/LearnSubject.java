@@ -41,7 +41,7 @@ public class LearnSubject {
     private Subject subject;
 
     public void setStudent(User student) {
-        if (Objects.isNull(student) || new ValidatorUserRole(student, RoleType.ROLE_STUDENT).isValid()) {
+        if (Objects.isNull(student) || new ValidatorUserRole(student, RoleType.STUDENT).isValid()) {
             this.student = student;
         } else {
             throw new IllegalArgumentException(LearnSubjectMessages.INVALID_STUDENT);

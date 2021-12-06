@@ -27,7 +27,7 @@ public class MockUser implements MockCreator<User> {
             .name("Name")
             .password(username)
             .phone("698523147")
-            .role(RoleType.ROLE_ADMIN)
+            .role(RoleType.ADMIN)
             .surname("Surname")
             .username(username)
             .build();

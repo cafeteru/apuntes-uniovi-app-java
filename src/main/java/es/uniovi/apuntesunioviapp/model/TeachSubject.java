@@ -41,7 +41,7 @@ public class TeachSubject {
     private Subject subject;
 
     public void setTeacher(User teacher) {
-        if (Objects.isNull(teacher) || new ValidatorUserRole(teacher, RoleType.ROLE_TEACHER).isValid()) {
+        if (Objects.isNull(teacher) || new ValidatorUserRole(teacher, RoleType.TEACHER).isValid()) {
             this.teacher = teacher;
         } else {
             throw new IllegalArgumentException(TeachSubjectMessages.INVALID_TEACHER);
