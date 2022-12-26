@@ -20,8 +20,8 @@ import es.uniovi.apuntesunioviapp.infrastructure.messages.UserMessages;
 import es.uniovi.apuntesunioviapp.model.types.IdentificationType;
 import es.uniovi.apuntesunioviapp.model.types.LanguageType;
 import es.uniovi.apuntesunioviapp.model.types.RoleType;
-import es.uniovi.apuntesunioviapp.validators.impl.ValidatorEmail;
 import es.uniovi.apuntesunioviapp.validators.impl.ValidatorIsBeforeToday;
+import io.github.cafeteru.validator_lib.EmailValidator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -91,7 +91,7 @@ public class User {
     private Address address;
 
     public void setEmail(String email) {
-        if (new ValidatorEmail(email).isValid()) {
+        if (new EmailValidator(email).isValid()) {
             this.email = email;
         } else {
             throw new IllegalArgumentException(UserMessages.INVALID_EMAIL);
