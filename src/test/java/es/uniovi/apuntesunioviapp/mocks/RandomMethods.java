@@ -6,7 +6,7 @@ import java.util.Random;
  * Class contains methods to generate random data
  */
 public class RandomMethods {
-    private static String CODE_LETTER = "TRWAGMYFPDXBNJZSQVHLCKET";
+    private static final String CODE_LETTER = "TRWAGMYFPDXBNJZSQVHLCKET";
 
     /**
      * Generate a random username
